@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--
+    乐白 LM3 的 ros2_control 配置
+    第一阶段：使用 mock_components/GenericSystem 做假硬件
+    作用：让 MoveIt 的 Plan + Execute 能在 RViz 里跑通
+  -->
+  <xacro:macro name="lebai_ros2_control" params="
+    name:=lebai_lm3
+    use_fake_hardware:=true
+    initial_positions_file:=''
+  ">
+
+    <ros2_control name="${name}" type="system">
+
+      <hardware>
+        <xacro:if value="${use_fake_hardware}">
+          <plugin>mock_components/GenericSystem</plugin>
+          <param name="calculate_dynamics">false</param>
+          <param name="disable_commands">false</param>
+          <param name="mock_sensor_commands">false</param>
+          <param name="position_state_following_offset">0.0</param>
+        </xacro:if>
+
+        <!-- 后面接真机时再换成你自己写的硬件接口插件 -->
+        <xacro:unless value="${use_fake_hardware}">
+          <plugin>lebai_hardware/LebaiSystemHardware</plugin>
+          <param name="robot_ip">192.168.1.100</param>
+          <param name="robot_port">10000</param>
+        </xacro:unless>
+      </hardware>
+
+      <!-- 六轴机械臂 -->
+      <joint name="joint_1">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="joint_2">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">-1.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="joint_3">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">1.2</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="joint_4">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="joint_5">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">1.2</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="joint_6">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <!-- 夹爪主动关节：名字必须改成你 URDF 里的真实夹爪主动关节名 -->
+      <joint name="gripper_r_joint1">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>
