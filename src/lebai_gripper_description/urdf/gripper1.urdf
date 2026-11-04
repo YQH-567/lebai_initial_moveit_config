@@ -13,7 +13,7 @@
   <link name="gripper_base_link">
     <visual>
       <geometry>
-        <mesh filename="meshes/gripper/visual/gripper_base.stl"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/visual/gripper_base.stl"/>
       </geometry>
       <material name="white">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -21,14 +21,14 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/gripper/collision/gripper_base.STL"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/collision/gripper_base.STL"/>
       </geometry>
     </collision>
   </link>
   <link name="gripper_r_link1">
     <visual>
       <geometry>
-        <mesh filename="meshes/gripper/visual/gripper_link1.stl"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/visual/gripper_link1.stl"/>
       </geometry>
       <material name="white">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -36,14 +36,14 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/gripper/collision/gripper_link1.STL"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/collision/gripper_link1.STL"/>
       </geometry>
     </collision>
   </link>
   <link name="gripper_r_link2">
     <visual>
       <geometry>
-        <mesh filename="meshes/gripper/visual/gripper_link2.stl"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/visual/gripper_link2.stl"/>
       </geometry>
       <material name="white">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -51,14 +51,14 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/gripper/collision/gripper_link2.STL"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/collision/gripper_link2.STL"/>
       </geometry>
     </collision>
   </link>
   <link name="gripper_r_link_finger">
     <visual>
       <geometry>
-        <mesh filename="meshes/gripper/visual/gripper_link_finger.stl"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/visual/gripper_link_finger.stl"/>
       </geometry>
       <material name="white">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -66,14 +66,14 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/gripper/collision/gripper_link_finger.STL"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/collision/gripper_link_finger.STL"/>
       </geometry>
     </collision>
   </link>
   <link name="gripper_l_link1">
     <visual>
       <geometry>
-        <mesh filename="meshes/gripper/visual/gripper_link1.stl"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/visual/gripper_link1.stl"/>
       </geometry>
       <material name="white">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -81,14 +81,14 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/gripper/collision/gripper_link1.STL"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/collision/gripper_link1.STL"/>
       </geometry>
     </collision>
   </link>
   <link name="gripper_l_link2">
     <visual>
       <geometry>
-        <mesh filename="meshes/gripper/visual/gripper_link2.stl"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/visual/gripper_link2.stl"/>
       </geometry>
       <material name="white">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -96,14 +96,14 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/gripper/collision/gripper_link2.STL"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/collision/gripper_link2.STL"/>
       </geometry>
     </collision>
   </link>
   <link name="gripper_l_link_finger">
     <visual>
       <geometry>
-        <mesh filename="meshes/gripper/visual/gripper_link_finger.stl"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/visual/gripper_link_finger.stl"/>
       </geometry>
       <material name="white">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -111,7 +111,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/gripper/collision/gripper_link_finger.STL"/>
+        <mesh filename="package://lebai_gripper_description/meshes/gripper/collision/gripper_link_finger.STL"/>
       </geometry>
     </collision>
   </link>
