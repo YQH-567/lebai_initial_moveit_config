@@ -1,4 +1,4 @@
-#删除colcon build生成的文件
-*.build
-*.install
-*.log
+# colcon build 生成的文件夹
+build/
+install/
+log/
