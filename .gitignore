@@ -1,0 +1,4 @@
+#删除colcon build生成的文件
+*.build
+*.install
+*.log

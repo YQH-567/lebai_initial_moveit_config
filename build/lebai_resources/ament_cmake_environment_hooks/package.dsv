@@ -1,0 +1,4 @@
+source;share/lebai_resources/local_setup.bash
+source;share/lebai_resources/local_setup.dsv
+source;share/lebai_resources/local_setup.sh
+source;share/lebai_resources/local_setup.zsh

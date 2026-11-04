@@ -1,0 +1,13 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "ros.distro": "jazzy",
+    "urdf-visualizer.packages": {
+    //"lm3": "/home/l/isaac_space_01/my_robot_rl/assets/robots/lm3",
+    "lebai_arm_description": "/home/l/dev_ws_02/lebai_moveit2_ws/src/lebai_arm_description"
+    }
+}

@@ -1,0 +1,6 @@
+source;share/lebai_gazebo_lift/hook/pythonpath.ps1
+source;share/lebai_gazebo_lift/hook/pythonpath.dsv
+source;share/lebai_gazebo_lift/hook/pythonpath.sh
+source;share/lebai_gazebo_lift/hook/ament_prefix_path.ps1
+source;share/lebai_gazebo_lift/hook/ament_prefix_path.dsv
+source;share/lebai_gazebo_lift/hook/ament_prefix_path.sh

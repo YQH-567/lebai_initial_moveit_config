@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find lebai_resources)/urdf/common_colours.xacro"/>
+  <xacro:include filename="$(find lebai_resources)/urdf/common_constants.xacro"/>
+  <xacro:include filename="$(find lebai_resources)/urdf/common_materials.xacro"/>
+
+  <xacro:macro name="simple_inertial" params="mass:=0.05 i:=0.0001">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia ixx="${i}" ixy="0.0" ixz="0.0" iyy="${i}" iyz="0.0" izz="${i}"/>
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="lebai_gripper"
+    params="
+      prefix:=''
+      parent:='world'
+      xyz:='0 0 0'
+      rpy:='0 0 0'
+      mesh_package:='lebai_gripper_description'
+      use_mimic:='true'
+      use_ros2_control:='false'
+    ">
+
+    <xacro:property name="gripper_visual_base" value="package://${mesh_package}/meshes/gripper/visual/gripper_base.stl"/>
+    <xacro:property name="gripper_visual_link1" value="package://${mesh_package}/meshes/gripper/visual/gripper_link1.stl"/>
+    <xacro:property name="gripper_visual_link2" value="package://${mesh_package}/meshes/gripper/visual/gripper_link2.stl"/>
+    <xacro:property name="gripper_visual_link_finger" value="package://${mesh_package}/meshes/gripper/visual/gripper_link_finger.stl"/>
+
+    <xacro:property name="gripper_collision_base" value="package://${mesh_package}/meshes/gripper/collision/gripper_base.STL"/>
+    <xacro:property name="gripper_collision_link1" value="package://${mesh_package}/meshes/gripper/collision/gripper_link1.STL"/>
+    <xacro:property name="gripper_collision_link2" value="package://${mesh_package}/meshes/gripper/collision/gripper_link2.STL"/>
+    <xacro:property name="gripper_collision_link_finger" value="package://${mesh_package}/meshes/gripper/collision/gripper_link_finger.STL"/>
+
+    <!-- Attachment joint. Do not add another fixed joint outside this macro. -->
+    <joint name="${prefix}gripper_mount_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}gripper_base_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+
+    <link name="${prefix}gripper_base_link">
+      <visual>
+        <geometry><mesh filename="${gripper_visual_base}"/></geometry>
+        <xacro:material_white name="white"/>
+      </visual>
+      <collision>
+        <geometry><mesh filename="${gripper_collision_base}"/></geometry>
+      </collision>
+      <xacro:simple_inertial mass="0.30" i="0.001"/>
+    </link>
+
+    <link name="${prefix}gripper_r_link1">
+      <visual>
+        <geometry><mesh filename="${gripper_visual_link1}"/></geometry>
+        <xacro:material_white name="white"/>
+      </visual>
+      <collision>
+        <!-- <geometry><mesh filename="${gripper_collision_link1}"/></geometry> -->
+		 <box size="0.001 0.001 0.001"/>
+      </collision>
+      <xacro:simple_inertial mass="0.05" i="0.0001"/>
+    </link>
+
+    <link name="${prefix}gripper_r_link2">
+      <visual>
+        <geometry><mesh filename="${gripper_visual_link2}"/></geometry>
+        <xacro:material_white name="white"/>
+      </visual>
+      <collision>
+        <!-- <geometry><mesh filename="${gripper_collision_link2}"/></geometry> -->
+		<box size="0.001 0.001 0.001"/>
+      </collision>
+      <xacro:simple_inertial mass="0.05" i="0.0001"/>
+    </link>
+
+    <link name="${prefix}gripper_r_link_finger">
+      <visual>
+        <geometry><mesh filename="${gripper_visual_link_finger}"/></geometry>
+        <xacro:material_white name="white"/>
+      </visual>
+      <collision>
+        <geometry><mesh filename="${gripper_collision_link_finger}"/></geometry>
+      </collision>
+      <xacro:simple_inertial mass="0.03" i="0.00005"/>
+    </link>
+
+    <link name="${prefix}gripper_l_link1">
+      <visual>
+        <geometry><mesh filename="${gripper_visual_link1}"/></geometry>
+        <xacro:material_white name="white"/>
+      </visual>
+      <collision>
+        <!-- <geometry><mesh filename="${gripper_collision_link1}"/></geometry> -->
+		 <box size="0.001 0.001 0.001"/>
+      </collision>
+      <xacro:simple_inertial mass="0.05" i="0.0001"/>
+    </link>
+
+    <link name="${prefix}gripper_l_link2">
+      <visual>
+        <geometry><mesh filename="${gripper_visual_link2}"/></geometry>
+        <xacro:material_white name="white"/>
+      </visual>
+      <collision>
+        <!-- <geometry><mesh filename="${gripper_collision_link2}"/></geometry> -->
+		<box size="0.001 0.001 0.001"/>
+      </collision>
+      <xacro:simple_inertial mass="0.05" i="0.0001"/>
+    </link>
+
+    <link name="${prefix}gripper_l_link_finger">
+      <visual>
+        <geometry><mesh filename="${gripper_visual_link_finger}"/></geometry>
+        <xacro:material_white name="white"/>
+      </visual>
+      <collision>
+        <geometry><mesh filename="${gripper_collision_link_finger}"/></geometry>
+      </collision>
+      <xacro:simple_inertial mass="0.03" i="0.00005"/>
+    </link>
+
+    <link name="${prefix}gripper_tip"/>
+
+    <!-- Active joint. Never mimic itself. -->
+    <joint name="${prefix}gripper_r_joint1" type="revolute">
+      <parent link="${prefix}gripper_base_link"/>
+      <child link="${prefix}gripper_r_link1"/>
+      <origin xyz="0.025 0.0 0.0856" rpy="${PI_2} 0.0 ${PI}"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="1"/>
+      <dynamics damping="0.2" friction="0.02"/>
+    </joint>
+
+    <joint name="${prefix}gripper_r_joint2" type="revolute">
+      <parent link="${prefix}gripper_base_link"/>
+      <child link="${prefix}gripper_r_link2"/>
+      <origin xyz="0.0115 0.0 0.1056" rpy="${PI_2} 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="1"/>
+      <dynamics damping="0.2" friction="0.02"/>
+      <xacro:if value="${use_mimic}">
+        <mimic joint="${prefix}gripper_r_joint1" multiplier="-1" offset="0"/>
+      </xacro:if>
+    </joint>
+
+    <joint name="${prefix}gripper_r_joint_finger" type="revolute">
+      <parent link="${prefix}gripper_r_link2"/>
+      <child link="${prefix}gripper_r_link_finger"/>
+      <origin xyz="0.0 0.053 0.0" rpy="${PI} 0 ${PI}"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="1"/>
+      <dynamics damping="0.2" friction="0.02"/>
+      <xacro:if value="${use_mimic}">
+        <mimic joint="${prefix}gripper_r_joint1" multiplier="-1" offset="0"/>
+      </xacro:if>
+    </joint>
+
+    <joint name="${prefix}gripper_l_joint1" type="revolute">
+      <parent link="${prefix}gripper_base_link"/>
+      <child link="${prefix}gripper_l_link1"/>
+      <origin xyz="-0.025 0.0 0.0856" rpy="${PI_2} 0.0 0.0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="1"/>
+      <dynamics damping="0.2" friction="0.02"/>
+      <xacro:if value="${use_mimic}">
+        <mimic joint="${prefix}gripper_r_joint1" multiplier="1" offset="0"/>
+      </xacro:if>
+    </joint>
+
+    <joint name="${prefix}gripper_l_joint2" type="revolute">
+      <parent link="${prefix}gripper_base_link"/>
+      <child link="${prefix}gripper_l_link2"/>
+      <origin xyz="-0.0115 0.0 0.1056" rpy="${PI_2} 0 ${PI}"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="1"/>
+      <dynamics damping="0.2" friction="0.02"/>
+      <xacro:if value="${use_mimic}">
+        <mimic joint="${prefix}gripper_r_joint1" multiplier="-1" offset="0"/>
+      </xacro:if>
+    </joint>
+
+    <joint name="${prefix}gripper_l_joint_finger" type="revolute">
+      <parent link="${prefix}gripper_l_link2"/>
+      <child link="${prefix}gripper_l_link_finger"/>
+      <origin xyz="0.0 0.053 0.0" rpy="${PI} 0 ${PI}"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="1"/>
+      <dynamics damping="0.2" friction="0.02"/>
+      <xacro:if value="${use_mimic}">
+        <mimic joint="${prefix}gripper_r_joint1" multiplier="-1" offset="0"/>
+      </xacro:if>
+    </joint>
+
+    <!-- fixed joint cannot mimic. -->
+    <joint name="${prefix}gripper_joint_tip" type="fixed">
+      <parent link="${prefix}gripper_l_link_finger"/>
+      <child link="${prefix}gripper_tip"/>
+      <origin xyz="0.0115 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+    <xacro:if value="${use_ros2_control}">
+      <ros2_control name="${prefix}gripper_system" type="system">
+        <hardware>
+          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        </hardware>
+
+        <joint name="${prefix}gripper_r_joint1">
+          <command_interface name="position">
+            <param name="min">-1.0</param>
+            <param name="max">1.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+        </joint>
+
+        <xacro:unless value="${use_mimic}">
+          <joint name="${prefix}gripper_r_joint2">
+            <command_interface name="position">
+              <param name="min">-1.0</param>
+              <param name="max">1.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+          </joint>
+          <joint name="${prefix}gripper_r_joint_finger">
+            <command_interface name="position">
+              <param name="min">-1.0</param>
+              <param name="max">1.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+          </joint>
+          <joint name="${prefix}gripper_l_joint1">
+            <command_interface name="position">
+              <param name="min">-1.0</param>
+              <param name="max">1.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+          </joint>
+          <joint name="${prefix}gripper_l_joint2">
+            <command_interface name="position">
+              <param name="min">-1.0</param>
+              <param name="max">1.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+          </joint>
+          <joint name="${prefix}gripper_l_joint_finger">
+            <command_interface name="position">
+              <param name="min">-1.0</param>
+              <param name="max">1.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+          </joint>
+        </xacro:unless>
+      </ros2_control>
+    </xacro:if>
+
+  </xacro:macro>
+</robot>

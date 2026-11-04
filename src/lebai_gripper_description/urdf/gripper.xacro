@@ -1,10 +1,17 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="lebai_lm3_gripper">  
-  	<link name="world"/>  
-	<xacro:include filename="$(find lebai_description)/urdf/gripper_macro.xacro"/>
-  	<xacro:lebai_gripper prefix=""/>
-  	<joint name="fixed" type="fixed">
-    	<parent link="world"/>
-    	<child link="gripper_base_link"/>
-  	</joint>
-</robot>
+	<robot name="standalone_lebai_gripper_view" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<xacro:include filename="$(find lebai_gripper_description)/urdf/gripper_macro.xacro"/>
+
+	<link name="world"/>
+
+	<xacro:lebai_gripper
+		prefix=""
+		parent="world"
+		xyz="0 0 0"
+		rpy="0 0 0"
+		mesh_package="lebai_gripper_description"
+		use_mimic="true"
+		use_ros2_control="false"/>
+
+	</robot>
