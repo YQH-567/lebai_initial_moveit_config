@@ -15,8 +15,8 @@ setup(
     zip_safe=True,
     maintainer='l',
     maintainer_email='19978531651@163.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='Reserved package for future perception-guided pick execution.',
+    license='Apache-2.0',
     extras_require={
         'test': [
             'pytest',

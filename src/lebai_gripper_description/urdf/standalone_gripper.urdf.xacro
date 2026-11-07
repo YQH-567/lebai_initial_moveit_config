@@ -11,7 +11,7 @@
     xyz="0 0 0"
     rpy="0 0 0"
     mesh_package="lebai_gripper_description"
-    use_mimic="false"
+    use_mimic="true"
     use_ros2_control="true"/>
 
   <gazebo>

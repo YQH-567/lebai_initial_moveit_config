@@ -1,14 +1,5 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="lebai_lm3">
-    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
-
-    <!-- Import lebai_lm3 urdf file -->
-    <xacro:include filename="$(find lebai_description)/urdf/lebai_with_collision.urdf" />
-
-    <!-- Import control_xacro -->
-    <xacro:include filename="lebai_lm3.ros2_control.xacro" />
-
-
-    <xacro:lebai_lm3_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
-
+    <!-- One canonical model is shared by RViz, MoveIt and Gazebo. -->
+    <xacro:include filename="$(find lebai_arm_description)/urdf/lm3_with_gripper.xacro"/>
 </robot>

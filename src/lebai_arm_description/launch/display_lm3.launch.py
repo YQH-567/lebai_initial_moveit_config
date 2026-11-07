@@ -9,6 +9,7 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
+    #这里的核心就是找到什么东西在哪里，然后启动这三个node，分别是joint_state_publisher_gui，robot_state_publisher，rviz2
     lebai_lm3_support_path = get_package_share_path('lebai_arm_description')
     lm3_model_path = lebai_lm3_support_path / 'urdf/lm3.xacro'
     default_rviz_config_path = lebai_lm3_support_path / 'rviz/view.rviz'

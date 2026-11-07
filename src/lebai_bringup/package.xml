@@ -3,11 +3,24 @@
 <package format="3">
   <name>lebai_bringup</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Launch and controller configuration for the Lebai LM3 stack.</description>
   <maintainer email="19978531651@163.com">l</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>gz_ros2_control</exec_depend>
+  <exec_depend>joint_state_broadcaster</exec_depend>
+  <exec_depend>joint_trajectory_controller</exec_depend>
+  <exec_depend>lebai_arm_description</exec_depend>
+  <exec_depend>lebai_gripper_description</exec_depend>
+  <exec_depend>lebai_lm3_moveit_config</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros_gz_image</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>xacro</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

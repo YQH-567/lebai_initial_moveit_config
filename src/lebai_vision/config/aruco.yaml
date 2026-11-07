@@ -1,0 +1,12 @@
+aruco_pose_node:
+  ros__parameters:
+    use_sim_time: false
+    image_topic: /camera/color/image_raw
+    camera_info_topic: /camera/color/camera_info
+    marker_id: 0
+    marker_size: 0.05
+    dictionary: DICT_4X4_50
+    output_frame: ''
+    child_frame: detected_object
+    max_reprojection_error: 3.0
+    publish_debug_image: true

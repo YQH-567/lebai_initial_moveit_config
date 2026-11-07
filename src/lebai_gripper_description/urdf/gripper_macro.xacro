@@ -58,8 +58,7 @@
         <xacro:material_white name="white"/>
       </visual>
       <collision>
-        <!-- <geometry><mesh filename="${gripper_collision_link1}"/></geometry> -->
-		 <box size="0.001 0.001 0.001"/>
+        <geometry><mesh filename="${gripper_collision_link1}"/></geometry>
       </collision>
       <xacro:simple_inertial mass="0.05" i="0.0001"/>
     </link>
@@ -70,8 +69,7 @@
         <xacro:material_white name="white"/>
       </visual>
       <collision>
-        <!-- <geometry><mesh filename="${gripper_collision_link2}"/></geometry> -->
-		<box size="0.001 0.001 0.001"/>
+        <geometry><mesh filename="${gripper_collision_link2}"/></geometry>
       </collision>
       <xacro:simple_inertial mass="0.05" i="0.0001"/>
     </link>
@@ -93,8 +91,7 @@
         <xacro:material_white name="white"/>
       </visual>
       <collision>
-        <!-- <geometry><mesh filename="${gripper_collision_link1}"/></geometry> -->
-		 <box size="0.001 0.001 0.001"/>
+        <geometry><mesh filename="${gripper_collision_link1}"/></geometry>
       </collision>
       <xacro:simple_inertial mass="0.05" i="0.0001"/>
     </link>
@@ -105,8 +102,7 @@
         <xacro:material_white name="white"/>
       </visual>
       <collision>
-        <!-- <geometry><mesh filename="${gripper_collision_link2}"/></geometry> -->
-		<box size="0.001 0.001 0.001"/>
+        <geometry><mesh filename="${gripper_collision_link2}"/></geometry>
       </collision>
       <xacro:simple_inertial mass="0.05" i="0.0001"/>
     </link>
@@ -215,6 +211,14 @@
           <state_interface name="position"/>
           <state_interface name="velocity"/>
         </joint>
+
+        <xacro:if value="${use_mimic}">
+          <joint name="${prefix}gripper_r_joint2"><state_interface name="position"/><state_interface name="velocity"/></joint>
+          <joint name="${prefix}gripper_r_joint_finger"><state_interface name="position"/><state_interface name="velocity"/></joint>
+          <joint name="${prefix}gripper_l_joint1"><state_interface name="position"/><state_interface name="velocity"/></joint>
+          <joint name="${prefix}gripper_l_joint2"><state_interface name="position"/><state_interface name="velocity"/></joint>
+          <joint name="${prefix}gripper_l_joint_finger"><state_interface name="position"/><state_interface name="velocity"/></joint>
+        </xacro:if>
 
         <xacro:unless value="${use_mimic}">
           <joint name="${prefix}gripper_r_joint2">

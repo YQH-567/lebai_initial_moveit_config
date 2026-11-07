@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- The default transform is a simulation starting point, not calibration. -->
+  <xacro:macro name="lebai_hand_camera" params="
+    parent prefix:='hand_camera_' xyz:='0.04 0.08 0.04' rpy:='0 -1.57079632679 0'
+    enable_sensor:='false' image_topic:='/hand_camera/image_raw'
+    camera_info_topic:='/hand_camera/camera_info'">
+    <link name="${prefix}link">
+      <visual>
+        <geometry><box size="0.04 0.025 0.025"/></geometry>
+        <material name="camera_black"><color rgba="0.05 0.05 0.05 1"/></material>
+      </visual>
+      <collision><geometry><box size="0.04 0.025 0.025"/></geometry></collision>
+      <inertial>
+        <mass value="0.08"/>
+        <inertia ixx="0.0000083" ixy="0" ixz="0"
+                 iyy="0.000014" iyz="0" izz="0.000016"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}mount_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+
+    <!-- REP-103 optical frame: +z forward, +x right, +y down. -->
+    <link name="${prefix}optical_frame"/>
+    <joint name="${prefix}optical_joint" type="fixed">
+      <parent link="${prefix}link"/>
+      <child link="${prefix}optical_frame"/>
+      <origin xyz="0.02 0 0" rpy="-${PI_2} 0 -${PI_2}"/>
+    </joint>
+
+    <xacro:if value="${enable_sensor}">
+      <!-- Gazebo cameras render along sensor +X; the ROS header uses the
+           corresponding +Z-forward optical frame defined above. -->
+      <gazebo reference="${prefix}link">
+        <sensor name="${prefix}rgb" type="camera">
+          <always_on>true</always_on>
+          <visualize>true</visualize>
+          <update_rate>30</update_rate>
+          <topic>${image_topic}</topic>
+          <gz_frame_id>${prefix}optical_frame</gz_frame_id>
+          <camera name="${prefix}camera">
+            <camera_info_topic>${camera_info_topic}</camera_info_topic>
+            <horizontal_fov>1.0472</horizontal_fov>
+            <image><width>640</width><height>480</height><format>R8G8B8</format></image>
+            <clip><near>0.05</near><far>5.0</far></clip>
+          </camera>
+        </sensor>
+      </gazebo>
+    </xacro:if>
+  </xacro:macro>
+</robot>
